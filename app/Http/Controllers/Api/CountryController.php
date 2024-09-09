@@ -1,51 +1,70 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
-use App\Models\Country;
+
 use App\Http\Requests\StoreCountryRequest;
 use App\Http\Requests\UpdateCountryRequest;
+use App\Http\Resources\CountryCollection;
+use App\Http\Resources\CountryResource;
+use App\Models\Country;
+use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @param \Illuminate\Http\Request $request
+     * @return \App\Http\Resources\CountryCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $countries = Country::latest()->get();
+
+        return new CountryCollection($countries);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @param \App\Http\Requests\StoreCountryRequest $request
+     * @return \App\Http\Resources\CountryResource
      */
     public function store(StoreCountryRequest $request)
     {
-        //
+        $country = Country::create($request->validated());
+
+        return new CountryResource($country);
     }
 
     /**
-     * Display the specified resource.
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Country $country
+     * @return \App\Http\Resources\CountryResource
      */
-    public function show(Country $country)
+    public function show(Request $request, Country $country)
     {
-        //
+        return new CountryResource($country);
     }
 
     /**
-     * Update the specified resource in storage.
+     * @param \App\Http\Requests\UpdateCountryRequest $request
+     * @param \App\Models\Country $country
+     * @return \App\Http\Resources\CountryResource
      */
     public function update(UpdateCountryRequest $request, Country $country)
     {
-        //
+        $country->update($request->validated());
+
+        return new CountryResource($country);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Country $country
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Country $country)
+    public function destroy(Request $request, Country $country)
     {
-        //
+        $country->delete();
+
+        return response()->noContent();
     }
 }

@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('image_url')->nullable();
+            $table->date('date_birth')->nullable();
             $table->string('name');
             $table->string('email')->unique();
-            $table->foreignId('lga_id')->constrained();
-            $table->foreignId('state_id')->constrained();
-            $table->foreignId('country_id')->constrained();           
+            $table->foreignId('lga_id')->nullable()->constrained();
+            $table->foreignId('state_id')->nullable()->constrained();
+            $table->foreignId('country_id')->nullable()->constrained();           
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

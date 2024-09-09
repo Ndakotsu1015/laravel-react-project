@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(50)->create();
+        // User::factory(50)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',
@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            CountrySeeder::class,
             StateSeeder::class,
             LgaSeeder::class,
         ]);

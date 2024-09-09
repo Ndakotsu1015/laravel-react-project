@@ -24,6 +24,9 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:55',
+            'lga_id' => 'required|integer|max:5',
+            'state_id' => 'required|integer|max:5',
+            'country_id' => 'required|integer|max:5',
             'email' => 'required|email|unique:users,email,' . $this->id, // Fixed email uniqueness check
             'password' => [
                 'nullable', // Mark password as nullable if not required during update
