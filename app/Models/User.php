@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable
 {
@@ -20,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'lga_id',
+        'state_id',
+        'country_id',
     ];
 
     /**
@@ -39,6 +43,22 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'lga_id' => 'integer',
+        'state_id' => 'integer',
+        'country_id' => 'integer',
         'password' => 'hashed',
     ];
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class);
+    }
+    public function lga(): BelongsTo
+    {
+        return $this->belongsTo(Lga::class);
+    }
 }

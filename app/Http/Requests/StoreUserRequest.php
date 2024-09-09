@@ -24,6 +24,9 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:55',
+            'lga_id' => 'required|integer|max:5',
+            'state_id' => 'required|integer|max:5',
+            'country_id' => 'required|integer|max:5',
             'email' => 'required|email|unique:users,email', // Corrected uniqueness rule
             'password' => [
                 'required',
