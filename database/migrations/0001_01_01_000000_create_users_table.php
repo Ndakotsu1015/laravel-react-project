@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->foreignId('lga_id')->constrained();
+            $table->foreignId('state_id')->constrained();
+            $table->foreignId('country_id')->constrained();           
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
